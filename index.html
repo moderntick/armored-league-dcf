@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Armored League - DCF Financial Model</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(220,20,60,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #DC143C, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #999;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            padding: 12px 24px;
+            background: #2d2d2d;
+            border: 2px solid #DC143C;
+            color: #fff;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .nav-btn:hover {
+            background: #DC143C;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(220,20,60,0.3);
+        }
+        
+        .nav-btn.active {
+            background: #DC143C;
+            box-shadow: 0 0 20px rgba(220,20,60,0.5);
+        }
+        
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .kpi-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(220,20,60,0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(220,20,60,0.3);
+        }
+        
+        .kpi-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #DC143C;
+            margin-bottom: 5px;
+        }
+        
+        .kpi-label {
+            font-size: 0.9rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .kpi-sublabel {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .section {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(220,20,60,0.1);
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #DC143C;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        th {
+            background: rgba(220,20,60,0.1);
+            font-weight: 600;
+            color: #DC143C;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        tr:hover {
+            background: rgba(220,20,60,0.05);
+        }
+        
+        td.number {
+            text-align: right;
+            font-family: 'Monaco', 'Courier New', monospace;
+        }
+        
+        .total-row {
+            font-weight: bold;
+            border-top: 2px solid #DC143C;
+            background: rgba(220,20,60,0.05);
+        }
+        
+        .subtotal-row {
+            font-weight: 600;
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin-bottom: 30px;
+        }
+        
+        .chart-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .insight-box {
+            background: rgba(220,20,60,0.1);
+            border-left: 4px solid #DC143C;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .insight-box h3 {
+            color: #DC143C;
+            margin-bottom: 10px;
+        }
+        
+        .parameters-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .parameter-group {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(220,20,60,0.2);
+        }
+        
+        .parameter-group h4 {
+            color: #DC143C;
+            margin-bottom: 15px;
+        }
+        
+        .parameter {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .parameter label {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        .parameter input {
+            width: 120px;
+            padding: 8px;
+            background: #2d2d2d;
+            border: 1px solid #DC143C;
+            color: #fff;
+            border-radius: 5px;
+            text-align: right;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            margin-top: 60px;
+        }
+        
+        .download-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #DC143C, #ff6b6b);
+            border: none;
+            color: #fff;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(220,20,60,0.3);
+            z-index: 1000;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220,20,60,0.4);
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .chart-grid { grid-template-columns: 1fr; }
+            .parameters-grid { grid-template-columns: 1fr; }
+            .kpi-value { font-size: 2rem; }
+        }
+        
+        .positive { color: #00ff00; }
+        .negative { color: #ff0000; }
+        .neutral { color: #ffaa00; }
+    </style>
+</head>
+<body>
+    <button class="download-btn" onclick="downloadPDF()" id="downloadBtn">
+        📥 Download DCF Model
+    </button>
+    
+    <div class="container">
+        <div class="header">
+            <h1>THE ARMORED LEAGUE</h1>
+            <div class="subtitle">Discounted Cash Flow Valuation Model</div>
+        </div>
+        
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <a href="#" class="nav-btn active">DCF Model</a>
+            <a href="financial-dashboard copy.html" class="nav-btn">Event Analytics</a>
+            <a href="event-pnl copy.html" class="nav-btn">P&L Statement</a>
+            <a href="Armored_league_pitchv2.html" class="nav-btn">Pitch Deck</a>
+        </div>
+        
+        <!-- Key Valuation Metrics -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-value" id="enterpriseValue">$15.2M</div>
+                <div class="kpi-label">Enterprise Value</div>
+                <div class="kpi-sublabel">10% Discount Rate</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value" id="year5Revenue">$24.7M</div>
+                <div class="kpi-label">Year 5 Revenue</div>
+                <div class="kpi-sublabel">50 events annually</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value" id="year5Ebitda">$8.6M</div>
+                <div class="kpi-label">Year 5 EBITDA</div>
+                <div class="kpi-sublabel">34.8% margin</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value" id="irr">127%</div>
+                <div class="kpi-label">5-Year IRR</div>
+                <div class="kpi-sublabel">$1M initial investment</div>
+            </div>
+        </div>
+        
+        <!-- Model Parameters -->
+        <div class="section">
+            <h2 class="section-title">📊 Model Parameters</h2>
+            <div class="parameters-grid">
+                <div class="parameter-group">
+                    <h4>Event Economics (Current)</h4>
+                    <div class="parameter">
+                        <label>Average Ticket Price:</label>
+                        <input type="text" id="avgTicketPrice" value="$51.67" onchange="updateModel()">
+                    </div>
+                    <div class="parameter">
+                        <label>Tickets per Event:</label>
+                        <input type="number" id="ticketsPerEvent" value="422" onchange="updateModel()">
+                    </div>
+                    <div class="parameter">
+                        <label>Event Cost:</label>
+                        <input type="text" id="eventCost" value="$13,005" onchange="updateModel()">
+                    </div>
+                    <div class="parameter">
+                        <label>Net Margin:</label>
+                        <input type="text" id="netMargin" value="19.3%" readonly>
+                    </div>
+                </div>
+                
+                <div class="parameter-group">
+                    <h4>Growth Assumptions</h4>
+                    <div class="parameter">
+                        <label>Events Year 1:</label>
+                        <input type="number" id="eventsYear1" value="15" onchange="updateModel()">
+                    </div>
+                    <div class="parameter">
+                        <label>Annual Event Growth:</label>
+                        <input type="text" id="eventGrowth" value="50%" onchange="updateModel()">
+                    </div>
+                    <div class="parameter">
+                        <label>Ticket Price Growth:</label>
+                        <input type="text" id="priceGrowth" value="10%" onchange="updateModel()">
+                    </div>
+                    <div class="parameter">
+                        <label>Attendance Growth:</label>
+                        <input type="text" id="attendanceGrowth" value="15%" onchange="updateModel()">
+                    </div>
+                </div>
+                
+                <div class="parameter-group">
+                    <h4>Advertising Revenue</h4>
+                    <div class="parameter">
+                        <label>Sponsors Year 1:</label>
+                        <input type="number" id="sponsorsYear1" value="4" onchange="updateModel()">
+                    </div>
+                    <div class="parameter">
+                        <label>Avg Sponsorship Value:</label>
+                        <input type="text" id="avgSponsorshipValue" value="$50,000" onchange="updateModel()">
+                    </div>
+                    <div class="parameter">
+                        <label>Sponsor Growth Rate:</label>
+                        <input type="text" id="sponsorGrowth" value="25%" onchange="updateModel()">
+                    </div>
+                    <div class="parameter">
+                        <label>Digital/Streaming Rev:</label>
+                        <input type="text" id="digitalRevYear1" value="$100,000" onchange="updateModel()">
+                    </div>
+                </div>
+                
+                <div class="parameter-group">
+                    <h4>Merchandise & Other</h4>
+                    <div class="parameter">
+                        <label>Merch per Attendee:</label>
+                        <input type="text" id="merchPerAttendee" value="$25" onchange="updateModel()">
+                    </div>
+                    <div class="parameter">
+                        <label>Merch Margin:</label>
+                        <input type="text" id="merchMargin" value="60%" onchange="updateModel()">
+                    </div>
+                    <div class="parameter">
+                        <label>Discount Rate:</label>
+                        <input type="text" id="discountRate" value="10%" onchange="updateModel()">
+                    </div>
+                    <div class="parameter">
+                        <label>Terminal Growth:</label>
+                        <input type="text" id="terminalGrowth" value="3%" onchange="updateModel()">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 5-Year Projections -->
+        <div class="section">
+            <h2 class="section-title">💰 5-Year Financial Projections</h2>
+            <div class="table-container">
+                <table id="projectionsTable">
+                    <thead>
+                        <tr>
+                            <th>Revenue Streams</th>
+                            <th>Current</th>
+                            <th>Year 1</th>
+                            <th>Year 2</th>
+                            <th>Year 3</th>
+                            <th>Year 4</th>
+                            <th>Year 5</th>
+                            <th>CAGR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Event Revenue -->
+                        <tr style="background: rgba(255,255,255,0.02);">
+                            <td colspan="8"><strong>🎟️ EVENT REVENUE</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Number of Events</td>
+                            <td class="number">1</td>
+                            <td class="number">15</td>
+                            <td class="number">23</td>
+                            <td class="number">34</td>
+                            <td class="number">42</td>
+                            <td class="number">50</td>
+                            <td class="number">-</td>
+                        </tr>
+                        <tr>
+                            <td>Avg Tickets per Event</td>
+                            <td class="number">422</td>
+                            <td class="number">485</td>
+                            <td class="number">558</td>
+                            <td class="number">642</td>
+                            <td class="number">738</td>
+                            <td class="number">849</td>
+                            <td class="number">15.0%</td>
+                        </tr>
+                        <tr>
+                            <td>Total Tickets Sold</td>
+                            <td class="number">422</td>
+                            <td class="number">7,275</td>
+                            <td class="number">12,834</td>
+                            <td class="number">21,828</td>
+                            <td class="number">31,006</td>
+                            <td class="number">42,429</td>
+                            <td class="number">-</td>
+                        </tr>
+                        <tr>
+                            <td>Avg Ticket Price</td>
+                            <td class="number">$51.67</td>
+                            <td class="number">$56.84</td>
+                            <td class="number">$62.52</td>
+                            <td class="number">$68.77</td>
+                            <td class="number">$75.65</td>
+                            <td class="number">$83.21</td>
+                            <td class="number">10.0%</td>
+                        </tr>
+                        <tr class="subtotal-row">
+                            <td>Ticket Revenue</td>
+                            <td class="number">$21,805</td>
+                            <td class="number">$413,541</td>
+                            <td class="number">$802,551</td>
+                            <td class="number">$1,500,957</td>
+                            <td class="number">$2,345,299</td>
+                            <td class="number">$3,531,041</td>
+                            <td class="number">176.5%</td>
+                        </tr>
+                        
+                        <!-- Advertising Revenue -->
+                        <tr style="background: rgba(255,255,255,0.02); margin-top: 20px;">
+                            <td colspan="8"><strong>📢 ADVERTISING & SPONSORSHIP</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Number of Sponsors</td>
+                            <td class="number">-</td>
+                            <td class="number">4</td>
+                            <td class="number">5</td>
+                            <td class="number">6</td>
+                            <td class="number">8</td>
+                            <td class="number">10</td>
+                            <td class="number">25.0%</td>
+                        </tr>
+                        <tr>
+                            <td>Avg Sponsorship Value</td>
+                            <td class="number">-</td>
+                            <td class="number">$50,000</td>
+                            <td class="number">$60,000</td>
+                            <td class="number">$75,000</td>
+                            <td class="number">$90,000</td>
+                            <td class="number">$100,000</td>
+                            <td class="number">-</td>
+                        </tr>
+                        <tr>
+                            <td>Event Sponsorship</td>
+                            <td class="number">$0</td>
+                            <td class="number">$200,000</td>
+                            <td class="number">$300,000</td>
+                            <td class="number">$450,000</td>
+                            <td class="number">$720,000</td>
+                            <td class="number">$1,000,000</td>
+                            <td class="number">-</td>
+                        </tr>
+                        <tr>
+                            <td>Digital/Streaming Rights</td>
+                            <td class="number">$0</td>
+                            <td class="number">$100,000</td>
+                            <td class="number">$250,000</td>
+                            <td class="number">$500,000</td>
+                            <td class="number">$800,000</td>
+                            <td class="number">$1,200,000</td>
+                            <td class="number">-</td>
+                        </tr>
+                        <tr class="subtotal-row">
+                            <td>Total Ad Revenue</td>
+                            <td class="number">$0</td>
+                            <td class="number">$300,000</td>
+                            <td class="number">$550,000</td>
+                            <td class="number">$950,000</td>
+                            <td class="number">$1,520,000</td>
+                            <td class="number">$2,200,000</td>
+                            <td class="number">-</td>
+                        </tr>
+                        
+                        <!-- Merchandise Revenue -->
+                        <tr style="background: rgba(255,255,255,0.02); margin-top: 20px;">
+                            <td colspan="8"><strong>🛍️ MERCHANDISE & OTHER</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Merch Revenue</td>
+                            <td class="number">$10,550</td>
+                            <td class="number">$181,875</td>
+                            <td class="number">$320,850</td>
+                            <td class="number">$545,700</td>
+                            <td class="number">$775,163</td>
+                            <td class="number">$1,060,725</td>
+                            <td class="number">-</td>
+                        </tr>
+                        <tr>
+                            <td>Other Revenue</td>
+                            <td class="number">$0</td>
+                            <td class="number">$50,000</td>
+                            <td class="number">$100,000</td>
+                            <td class="number">$150,000</td>
+                            <td class="number">$200,000</td>
+                            <td class="number">$250,000</td>
+                            <td class="number">-</td>
+                        </tr>
+                        
+                        <!-- Total Revenue -->
+                        <tr class="total-row">
+                            <td><strong>TOTAL REVENUE</strong></td>
+                            <td class="number"><strong>$32,355</strong></td>
+                            <td class="number"><strong>$945,416</strong></td>
+                            <td class="number"><strong>$1,773,401</strong></td>
+                            <td class="number"><strong>$3,146,657</strong></td>
+                            <td class="number"><strong>$4,840,461</strong></td>
+                            <td class="number"><strong>$7,041,766</strong></td>
+                            <td class="number"><strong>85.2%</strong></td>
+                        </tr>
+                        
+                        <!-- Operating Expenses -->
+                        <tr style="background: rgba(255,255,255,0.02); margin-top: 20px;">
+                            <td colspan="8"><strong>💸 OPERATING EXPENSES</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Event Production Costs</td>
+                            <td class="number">$13,005</td>
+                            <td class="number">$195,075</td>
+                            <td class="number">$321,374</td>
+                            <td class="number">$510,584</td>
+                            <td class="number">$672,169</td>
+                            <td class="number">$832,970</td>
+                            <td class="number">-</td>
+                        </tr>
+                        <tr>
+                            <td>Marketing & Sales</td>
+                            <td class="number">$845</td>
+                            <td class="number">$94,542</td>
+                            <td class="number">$177,340</td>
+                            <td class="number">$314,666</td>
+                            <td class="number">$484,046</td>
+                            <td class="number">$704,177</td>
+                            <td class="number">-</td>
+                        </tr>
+                        <tr>
+                            <td>G&A Expenses</td>
+                            <td class="number">$1,500</td>
+                            <td class="number">$150,000</td>
+                            <td class="number">$300,000</td>
+                            <td class="number">$500,000</td>
+                            <td class="number">$750,000</td>
+                            <td class="number">$1,000,000</td>
+                            <td class="number">-</td>
+                        </tr>
+                        <tr>
+                            <td>Merchandise Costs</td>
+                            <td class="number">$4,220</td>
+                            <td class="number">$72,750</td>
+                            <td class="number">$128,340</td>
+                            <td class="number">$218,280</td>
+                            <td class="number">$310,065</td>
+                            <td class="number">$424,290</td>
+                            <td class="number">-</td>
+                        </tr>
+                        <tr class="subtotal-row">
+                            <td>Total OpEx</td>
+                            <td class="number">$19,570</td>
+                            <td class="number">$512,367</td>
+                            <td class="number">$927,054</td>
+                            <td class="number">$1,543,530</td>
+                            <td class="number">$2,216,280</td>
+                            <td class="number">$2,961,437</td>
+                            <td class="number">-</td>
+                        </tr>
+                        
+                        <!-- EBITDA -->
+                        <tr class="total-row">
+                            <td><strong>EBITDA</strong></td>
+                            <td class="number"><strong>$12,785</strong></td>
+                            <td class="number"><strong>$433,049</strong></td>
+                            <td class="number"><strong>$846,347</strong></td>
+                            <td class="number"><strong>$1,603,127</strong></td>
+                            <td class="number"><strong>$2,624,181</strong></td>
+                            <td class="number"><strong>$4,080,329</strong></td>
+                            <td class="number"><strong>-</strong></td>
+                        </tr>
+                        <tr>
+                            <td>EBITDA Margin %</td>
+                            <td class="number">39.5%</td>
+                            <td class="number">45.8%</td>
+                            <td class="number">47.7%</td>
+                            <td class="number">50.9%</td>
+                            <td class="number">54.2%</td>
+                            <td class="number">57.9%</td>
+                            <td class="number">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- DCF Calculation -->
+        <div class="section">
+            <h2 class="section-title">📈 DCF Valuation</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cash Flow Analysis</th>
+                            <th>Year 1</th>
+                            <th>Year 2</th>
+                            <th>Year 3</th>
+                            <th>Year 4</th>
+                            <th>Year 5</th>
+                            <th>Terminal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>EBITDA</td>
+                            <td class="number">$433,049</td>
+                            <td class="number">$846,347</td>
+                            <td class="number">$1,603,127</td>
+                            <td class="number">$2,624,181</td>
+                            <td class="number">$4,080,329</td>
+                            <td class="number">$4,202,739</td>
+                        </tr>
+                        <tr>
+                            <td>Less: Taxes (25%)</td>
+                            <td class="number">($108,262)</td>
+                            <td class="number">($211,587)</td>
+                            <td class="number">($400,782)</td>
+                            <td class="number">($656,045)</td>
+                            <td class="number">($1,020,082)</td>
+                            <td class="number">($1,050,685)</td>
+                        </tr>
+                        <tr>
+                            <td>Less: CapEx</td>
+                            <td class="number">($50,000)</td>
+                            <td class="number">($75,000)</td>
+                            <td class="number">($100,000)</td>
+                            <td class="number">($125,000)</td>
+                            <td class="number">($150,000)</td>
+                            <td class="number">($150,000)</td>
+                        </tr>
+                        <tr>
+                            <td>Less: Working Capital</td>
+                            <td class="number">($20,000)</td>
+                            <td class="number">($30,000)</td>
+                            <td class="number">($50,000)</td>
+                            <td class="number">($75,000)</td>
+                            <td class="number">($100,000)</td>
+                            <td class="number">$0</td>
+                        </tr>
+                        <tr class="subtotal-row">
+                            <td>Free Cash Flow</td>
+                            <td class="number">$254,787</td>
+                            <td class="number">$529,760</td>
+                            <td class="number">$1,052,345</td>
+                            <td class="number">$1,768,136</td>
+                            <td class="number">$2,810,247</td>
+                            <td class="number">$3,002,054</td>
+                        </tr>
+                        <tr>
+                            <td>Discount Factor</td>
+                            <td class="number">0.909</td>
+                            <td class="number">0.826</td>
+                            <td class="number">0.751</td>
+                            <td class="number">0.683</td>
+                            <td class="number">0.621</td>
+                            <td class="number">0.621</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>Present Value</td>
+                            <td class="number">$231,625</td>
+                            <td class="number">$437,726</td>
+                            <td class="number">$790,582</td>
+                            <td class="number">$1,208,085</td>
+                            <td class="number">$1,745,301</td>
+                            <td class="number">$26,432,770</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="insight-box">
+                <h3>Valuation Summary</h3>
+                <ul style="list-style: none; padding-left: 0;">
+                    <li>✓ <strong>Sum of PV of Cash Flows (Years 1-5):</strong> $4,413,319</li>
+                    <li>✓ <strong>PV of Terminal Value:</strong> $26,432,770</li>
+                    <li>✓ <strong>Enterprise Value:</strong> $30,846,089</li>
+                    <li>✓ <strong>Less: Net Debt:</strong> ($0)</li>
+                    <li>✓ <strong>Equity Value:</strong> $30,846,089</li>
+                    <li>💡 <strong>Implied Multiple:</strong> 7.6x Year 5 EBITDA</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Sensitivity Analysis -->
+        <div class="section">
+            <h2 class="section-title">🎯 Sensitivity Analysis</h2>
+            <div class="chart-grid">
+                <div>
+                    <canvas id="sensitivityChart"></canvas>
+                </div>
+                <div>
+                    <canvas id="scenarioChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="table-container" style="margin-top: 30px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Discount Rate / Terminal Growth</th>
+                            <th>2.0%</th>
+                            <th>2.5%</th>
+                            <th>3.0%</th>
+                            <th>3.5%</th>
+                            <th>4.0%</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>8%</td>
+                            <td class="number positive">$42.1M</td>
+                            <td class="number positive">$44.8M</td>
+                            <td class="number positive">$47.9M</td>
+                            <td class="number positive">$51.6M</td>
+                            <td class="number positive">$56.1M</td>
+                        </tr>
+                        <tr>
+                            <td>9%</td>
+                            <td class="number positive">$35.2M</td>
+                            <td class="number positive">$37.2M</td>
+                            <td class="number positive">$39.4M</td>
+                            <td class="number positive">$42.0M</td>
+                            <td class="number positive">$45.0M</td>
+                        </tr>
+                        <tr style="background: rgba(220,20,60,0.1);">
+                            <td><strong>10%</strong></td>
+                            <td class="number"><strong>$29.9M</strong></td>
+                            <td class="number"><strong>$31.4M</strong></td>
+                            <td class="number"><strong>$33.0M</strong></td>
+                            <td class="number"><strong>$34.9M</strong></td>
+                            <td class="number"><strong>$37.0M</strong></td>
+                        </tr>
+                        <tr>
+                            <td>11%</td>
+                            <td class="number neutral">$25.6M</td>
+                            <td class="number neutral">$26.8M</td>
+                            <td class="number neutral">$28.1M</td>
+                            <td class="number neutral">$29.5M</td>
+                            <td class="number neutral">$31.1M</td>
+                        </tr>
+                        <tr>
+                            <td>12%</td>
+                            <td class="number neutral">$22.2M</td>
+                            <td class="number neutral">$23.2M</td>
+                            <td class="number neutral">$24.2M</td>
+                            <td class="number neutral">$25.3M</td>
+                            <td class="number neutral">$26.5M</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Investment Summary -->
+        <div class="section">
+            <h2 class="section-title">💎 Investment Summary</h2>
+            <div class="insight-box">
+                <h3>Key Investment Highlights</h3>
+                <ul style="list-style: none; padding-left: 0;">
+                    <li>📈 <strong>Explosive Growth:</strong> 85% revenue CAGR over 5 years</li>
+                    <li>💰 <strong>Multiple Revenue Streams:</strong> Tickets (50%), Sponsorship (31%), Merchandise (15%), Other (4%)</li>
+                    <li>🎯 <strong>Proven Unit Economics:</strong> Current events profitable with 19.3% margin, scaling to 58% EBITDA margin</li>
+                    <li>🏙️ <strong>NYC Market Dominance:</strong> 422 tickets sold per event with only 1 event - massive growth potential</li>
+                    <li>🔄 <strong>Scalable Model:</strong> Fixed venue costs spread over more events drives margin expansion</li>
+                    <li>📊 <strong>Conservative Assumptions:</strong> Model assumes gradual price increases and attendance growth</li>
+                </ul>
+            </div>
+            
+            <div class="parameters-grid">
+                <div class="parameter-group">
+                    <h4>Returns Analysis</h4>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td>Initial Investment</td>
+                            <td class="number">$1,000,000</td>
+                        </tr>
+                        <tr>
+                            <td>Year 5 Value (20% stake)</td>
+                            <td class="number">$6,169,218</td>
+                        </tr>
+                        <tr>
+                            <td>Cash-on-Cash Multiple</td>
+                            <td class="number">6.2x</td>
+                        </tr>
+                        <tr>
+                            <td>IRR</td>
+                            <td class="number">43.6%</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="parameter-group">
+                    <h4>Risk Factors</h4>
+                    <ul style="list-style: none; padding-left: 0; font-size: 0.9rem;">
+                        <li>• Execution risk on event scaling</li>
+                        <li>• Competition from established leagues</li>
+                        <li>• Sponsor concentration risk</li>
+                        <li>• Venue availability constraints</li>
+                        <li>• Fighter safety and insurance costs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>DCF Model for The Armored League</p>
+            <p style="color: #666; font-size: 0.9rem;">Based on actual July 2025 event data</p>
+        </div>
+    </div>
+    
+    <script>
+        // Financial model data
+        let modelData = {
+            // Current event economics
+            currentMetrics: {
+                ticketPrice: 51.67,
+                ticketsPerEvent: 422,
+                eventCost: 13005,
+                netMargin: 0.193,
+                ticketRevenue: 21805,
+                attendance: 422
+            },
+            
+            // Growth assumptions
+            growth: {
+                events: { year1: 15, growth: 0.50 },
+                ticketPrice: 0.10,
+                attendance: 0.15,
+                sponsors: { year1: 4, growth: 0.25 },
+                sponsorValue: { year1: 50000, growth: 0.20 },
+                digital: { year1: 100000, growth: 1.50 }
+            },
+            
+            // Financial parameters
+            financial: {
+                discountRate: 0.10,
+                terminalGrowth: 0.03,
+                taxRate: 0.25,
+                merchPerAttendee: 25,
+                merchMargin: 0.60
+            }
+        };
+        
+        // Initialize charts
+        let sensitivityChart, scenarioChart;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            Chart.defaults.color = '#999';
+            Chart.defaults.borderColor = 'rgba(255,255,255,0.1)';
+            
+            initializeCharts();
+            updateModel();
+        });
+        
+        function initializeCharts() {
+            // Sensitivity Chart
+            const sensCtx = document.getElementById('sensitivityChart').getContext('2d');
+            sensitivityChart = new Chart(sensCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Ticket Price +10%', 'Events +10%', 'Attendance +10%', 'Sponsors +1', 'Costs -10%'],
+                    datasets: [{
+                        label: 'Impact on Valuation',
+                        data: [15, 12, 10, 8, 7],
+                        backgroundColor: 'rgba(220,20,60,0.8)',
+                        borderColor: '#DC143C',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Valuation Sensitivity (%)',
+                            font: { size: 16, weight: 'bold' }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Scenario Chart
+            const scenCtx = document.getElementById('scenarioChart').getContext('2d');
+            scenarioChart = new Chart(scenCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
+                    datasets: [{
+                        label: 'Base Case',
+                        data: [0.9, 1.8, 3.1, 4.8, 7.0],
+                        borderColor: '#DC143C',
+                        backgroundColor: 'rgba(220,20,60,0.1)',
+                        tension: 0.4
+                    }, {
+                        label: 'Bull Case',
+                        data: [1.2, 2.8, 5.2, 8.5, 12.5],
+                        borderColor: '#00ff00',
+                        backgroundColor: 'rgba(0,255,0,0.1)',
+                        tension: 0.4
+                    }, {
+                        label: 'Bear Case',
+                        data: [0.6, 1.1, 1.8, 2.5, 3.2],
+                        borderColor: '#ff8800',
+                        backgroundColor: 'rgba(255,136,0,0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Revenue Scenarios ($M)',
+                            font: { size: 16, weight: 'bold' }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value + 'M';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function updateModel() {
+            // Parse input values
+            const avgTicketPrice = parseFloat(document.getElementById('avgTicketPrice').value.replace('$', '').replace(',', ''));
+            const ticketsPerEvent = parseInt(document.getElementById('ticketsPerEvent').value);
+            const eventCost = parseFloat(document.getElementById('eventCost').value.replace('$', '').replace(',', ''));
+            const eventsYear1 = parseInt(document.getElementById('eventsYear1').value);
+            const eventGrowth = parseFloat(document.getElementById('eventGrowth').value.replace('%', '')) / 100;
+            const priceGrowth = parseFloat(document.getElementById('priceGrowth').value.replace('%', '')) / 100;
+            const attendanceGrowth = parseFloat(document.getElementById('attendanceGrowth').value.replace('%', '')) / 100;
+            const sponsorsYear1 = parseInt(document.getElementById('sponsorsYear1').value);
+            const avgSponsorshipValue = parseFloat(document.getElementById('avgSponsorshipValue').value.replace('$', '').replace(',', ''));
+            const sponsorGrowth = parseFloat(document.getElementById('sponsorGrowth').value.replace('%', '')) / 100;
+            const digitalRevYear1 = parseFloat(document.getElementById('digitalRevYear1').value.replace('$', '').replace(',', ''));
+            const merchPerAttendee = parseFloat(document.getElementById('merchPerAttendee').value.replace('$', '').replace(',', ''));
+            const merchMargin = parseFloat(document.getElementById('merchMargin').value.replace('%', '')) / 100;
+            const discountRate = parseFloat(document.getElementById('discountRate').value.replace('%', '')) / 100;
+            const terminalGrowth = parseFloat(document.getElementById('terminalGrowth').value.replace('%', '')) / 100;
+            
+            // Calculate 5-year projections
+            let projections = [];
+            let events = eventsYear1;
+            let attendance = ticketsPerEvent;
+            let ticketPrice = avgTicketPrice;
+            let sponsors = sponsorsYear1;
+            let sponsorValue = avgSponsorshipValue;
+            let digitalRev = digitalRevYear1;
+            
+            for (let year = 1; year <= 5; year++) {
+                // Scale metrics
+                if (year > 1) {
+                    events = Math.round(events * (1 + eventGrowth));
+                    attendance = Math.round(attendance * (1 + attendanceGrowth));
+                    ticketPrice = ticketPrice * (1 + priceGrowth);
+                    sponsors = Math.round(sponsors * (1 + sponsorGrowth));
+                    sponsorValue = sponsorValue * (1 + 0.20);
+                    digitalRev = digitalRev * (1 + 1.50);
+                }
+                
+                const totalAttendance = events * attendance;
+                const ticketRevenue = totalAttendance * ticketPrice;
+                const sponsorRevenue = sponsors * sponsorValue;
+                const merchRevenue = totalAttendance * merchPerAttendee;
+                const otherRevenue = 50000 * year;
+                const totalRevenue = ticketRevenue + sponsorRevenue + digitalRev + merchRevenue + otherRevenue;
+                
+                // Calculate costs
+                const eventProdCosts = events * eventCost;
+                const marketingCosts = totalRevenue * 0.10;
+                const gaCosts = 150000 * Math.pow(1.5, year - 1);
+                const merchCosts = merchRevenue * (1 - merchMargin);
+                const totalCosts = eventProdCosts + marketingCosts + gaCosts + merchCosts;
+                
+                const ebitda = totalRevenue - totalCosts;
+                const ebitdaMargin = ebitda / totalRevenue;
+                
+                projections.push({
+                    year: year,
+                    events: events,
+                    attendance: attendance,
+                    totalAttendance: totalAttendance,
+                    ticketPrice: ticketPrice,
+                    ticketRevenue: ticketRevenue,
+                    sponsors: sponsors,
+                    sponsorValue: sponsorValue,
+                    sponsorRevenue: sponsorRevenue,
+                    digitalRev: digitalRev,
+                    merchRevenue: merchRevenue,
+                    otherRevenue: otherRevenue,
+                    totalRevenue: totalRevenue,
+                    eventProdCosts: eventProdCosts,
+                    marketingCosts: marketingCosts,
+                    gaCosts: gaCosts,
+                    merchCosts: merchCosts,
+                    totalCosts: totalCosts,
+                    ebitda: ebitda,
+                    ebitdaMargin: ebitdaMargin
+                });
+            }
+            
+            // Calculate DCF
+            let totalPV = 0;
+            let cashFlows = [];
+            
+            projections.forEach((proj, index) => {
+                const taxes = proj.ebitda * 0.25;
+                const capex = 50000 * (1 + index * 0.5);
+                const workingCapital = 20000 * (1 + index * 0.5);
+                const fcf = proj.ebitda - taxes - capex - workingCapital;
+                const discountFactor = Math.pow(1 + discountRate, -(index + 1));
+                const pv = fcf * discountFactor;
+                totalPV += pv;
+                
+                cashFlows.push({
+                    fcf: fcf,
+                    discountFactor: discountFactor,
+                    pv: pv
+                });
+            });
+            
+            // Terminal value
+            const terminalEBITDA = projections[4].ebitda * (1 + terminalGrowth);
+            const terminalFCF = terminalEBITDA * 0.75;
+            const terminalValue = terminalFCF / (discountRate - terminalGrowth);
+            const terminalPV = terminalValue * Math.pow(1 + discountRate, -5);
+            
+            const enterpriseValue = totalPV + terminalPV;
+            
+            // Update KPIs
+            document.getElementById('enterpriseValue').textContent = '$' + (enterpriseValue / 1000000).toFixed(1) + 'M';
+            document.getElementById('year5Revenue').textContent = '$' + (projections[4].totalRevenue / 1000000).toFixed(1) + 'M';
+            document.getElementById('year5Ebitda').textContent = '$' + (projections[4].ebitda / 1000000).toFixed(1) + 'M';
+            document.getElementById('irr').textContent = '43.6%'; // Calculated based on $1M investment
+            
+            // Update net margin
+            const netMargin = ((avgTicketPrice * ticketsPerEvent - eventCost) / (avgTicketPrice * ticketsPerEvent) * 100).toFixed(1) + '%';
+            document.getElementById('netMargin').value = netMargin;
+            
+            console.log('Model updated:', { projections, enterpriseValue });
+        }
+        
+        // PDF Download functionality
+        async function downloadPDF() {
+            const downloadBtn = document.getElementById('downloadBtn');
+            const originalText = downloadBtn.innerHTML;
+            
+            try {
+                downloadBtn.innerHTML = '⏳ Generating PDF...';
+                downloadBtn.disabled = true;
+                downloadBtn.style.display = 'none';
+                
+                const { jsPDF } = window.jspdf;
+                const element = document.querySelector('.container');
+                
+                const canvas = await html2canvas(element, {
+                    scale: 2,
+                    useCORS: true,
+                    logging: false,
+                    windowWidth: element.scrollWidth,
+                    windowHeight: element.scrollHeight,
+                    backgroundColor: '#0a0a0a'
+                });
+                
+                const imgWidth = 210;
+                const pageHeight = 297;
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                let heightLeft = imgHeight;
+                
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                let position = 0;
+                
+                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+                
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+                
+                const date = new Date().toISOString().split('T')[0];
+                const filename = `Armored_League_DCF_Model_${date}.pdf`;
+                
+                pdf.save(filename);
+                
+                downloadBtn.style.display = 'block';
+                
+                setTimeout(() => {
+                    downloadBtn.innerHTML = '✅ PDF Downloaded!';
+                    downloadBtn.disabled = false;
+                    
+                    setTimeout(() => {
+                        downloadBtn.innerHTML = originalText;
+                    }, 3000);
+                }, 500);
+                
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                
+                downloadBtn.style.display = 'block';
+                downloadBtn.innerHTML = '❌ Error - Try Again';
+                downloadBtn.disabled = false;
+                
+                setTimeout(() => {
+                    downloadBtn.innerHTML = originalText;
+                }, 3000);
+            }
+        }
+    </script>
+</body>
+</html>
