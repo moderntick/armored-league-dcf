@@ -346,17 +346,17 @@
             <div class="kpi-card">
                 <div class="kpi-value" id="enterpriseValue">$15.2M</div>
                 <div class="kpi-label">Enterprise Value</div>
-                <div class="kpi-sublabel">10% Discount Rate</div>
+                <div class="kpi-sublabel" id="kpiDiscountRate">10% Discount Rate</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-value" id="year5Revenue">$24.7M</div>
                 <div class="kpi-label">Year 5 Revenue</div>
-                <div class="kpi-sublabel">50 events annually</div>
+                <div class="kpi-sublabel" id="kpiEvents">50 events annually</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-value" id="year5Ebitda">$8.6M</div>
                 <div class="kpi-label">Year 5 EBITDA</div>
-                <div class="kpi-sublabel">34.8% margin</div>
+                <div class="kpi-sublabel" id="kpiEbitdaMargin">34.8% margin</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-value" id="irr">127%</div>
@@ -459,12 +459,12 @@
                     <thead>
                         <tr>
                             <th>Revenue Streams</th>
-                            <th>Current</th>
-                            <th>Year 1</th>
-                            <th>Year 2</th>
-                            <th>Year 3</th>
-                            <th>Year 4</th>
-                            <th>Year 5</th>
+                            <th id="current_year_header">Current</th>
+                            <th id="y1_header">Year 1</th>
+                            <th id="y2_header">Year 2</th>
+                            <th id="y3_header">Year 3</th>
+                            <th id="y4_header">Year 4</th>
+                            <th id="y5_header">Year 5</th>
                             <th>CAGR</th>
                         </tr>
                     </thead>
@@ -475,53 +475,53 @@
                         </tr>
                         <tr>
                             <td>Number of Events</td>
-                            <td class="number">1</td>
-                            <td class="number">15</td>
-                            <td class="number">23</td>
-                            <td class="number">34</td>
-                            <td class="number">42</td>
-                            <td class="number">50</td>
-                            <td class="number">-</td>
+                            <td class="number" id="events_current">1</td>
+                            <td class="number" id="events_y1">15</td>
+                            <td class="number" id="events_y2">23</td>
+                            <td class="number" id="events_y3">34</td>
+                            <td class="number" id="events_y4">42</td>
+                            <td class="number" id="events_y5">50</td>
+                            <td class="number" id="events_cagr">-</td>
                         </tr>
                         <tr>
                             <td>Avg Tickets per Event</td>
-                            <td class="number">422</td>
-                            <td class="number">485</td>
-                            <td class="number">558</td>
-                            <td class="number">642</td>
-                            <td class="number">738</td>
-                            <td class="number">849</td>
-                            <td class="number">15.0%</td>
+                            <td class="number" id="tickets_per_event_current">422</td>
+                            <td class="number" id="tickets_per_event_y1">485</td>
+                            <td class="number" id="tickets_per_event_y2">558</td>
+                            <td class="number" id="tickets_per_event_y3">642</td>
+                            <td class="number" id="tickets_per_event_y4">738</td>
+                            <td class="number" id="tickets_per_event_y5">849</td>
+                            <td class="number" id="tickets_per_event_cagr">15.0%</td>
                         </tr>
                         <tr>
                             <td>Total Tickets Sold</td>
-                            <td class="number">422</td>
-                            <td class="number">7,275</td>
-                            <td class="number">12,834</td>
-                            <td class="number">21,828</td>
-                            <td class="number">31,006</td>
-                            <td class="number">42,429</td>
+                            <td class="number" id="total_tickets_current">422</td>
+                            <td class="number" id="total_tickets_y1">7,275</td>
+                            <td class="number" id="total_tickets_y2">12,834</td>
+                            <td class="number" id="total_tickets_y3">21,828</td>
+                            <td class="number" id="total_tickets_y4">31,006</td>
+                            <td class="number" id="total_tickets_y5">42,429</td>
                             <td class="number">-</td>
                         </tr>
                         <tr>
                             <td>Avg Ticket Price</td>
-                            <td class="number">$51.67</td>
-                            <td class="number">$56.84</td>
-                            <td class="number">$62.52</td>
-                            <td class="number">$68.77</td>
-                            <td class="number">$75.65</td>
-                            <td class="number">$83.21</td>
-                            <td class="number">10.0%</td>
+                            <td class="number" id="avg_price_current">$51.67</td>
+                            <td class="number" id="avg_price_y1">$56.84</td>
+                            <td class="number" id="avg_price_y2">$62.52</td>
+                            <td class="number" id="avg_price_y3">$68.77</td>
+                            <td class="number" id="avg_price_y4">$75.65</td>
+                            <td class="number" id="avg_price_y5">$83.21</td>
+                            <td class="number" id="avg_price_cagr">10.0%</td>
                         </tr>
                         <tr class="subtotal-row">
                             <td>Ticket Revenue</td>
-                            <td class="number">$21,805</td>
-                            <td class="number">$413,541</td>
-                            <td class="number">$802,551</td>
-                            <td class="number">$1,500,957</td>
-                            <td class="number">$2,345,299</td>
-                            <td class="number">$3,531,041</td>
-                            <td class="number">176.5%</td>
+                            <td class="number" id="ticket_rev_current">$21,805</td>
+                            <td class="number" id="ticket_rev_y1">$413,541</td>
+                            <td class="number" id="ticket_rev_y2">$802,551</td>
+                            <td class="number" id="ticket_rev_y3">$1,500,957</td>
+                            <td class="number" id="ticket_rev_y4">$2,345,299</td>
+                            <td class="number" id="ticket_rev_y5">$3,531,041</td>
+                            <td class="number" id="ticket_rev_cagr">176.5%</td>
                         </tr>
                         
                         <!-- Advertising Revenue -->
@@ -531,51 +531,51 @@
                         <tr>
                             <td>Number of Sponsors</td>
                             <td class="number">-</td>
-                            <td class="number">4</td>
-                            <td class="number">5</td>
-                            <td class="number">6</td>
-                            <td class="number">8</td>
-                            <td class="number">10</td>
-                            <td class="number">25.0%</td>
+                            <td class="number" id="sponsors_y1">4</td>
+                            <td class="number" id="sponsors_y2">5</td>
+                            <td class="number" id="sponsors_y3">6</td>
+                            <td class="number" id="sponsors_y4">8</td>
+                            <td class="number" id="sponsors_y5">10</td>
+                            <td class="number" id="sponsors_cagr">25.0%</td>
                         </tr>
                         <tr>
                             <td>Avg Sponsorship Value</td>
                             <td class="number">-</td>
-                            <td class="number">$50,000</td>
-                            <td class="number">$60,000</td>
-                            <td class="number">$75,000</td>
-                            <td class="number">$90,000</td>
-                            <td class="number">$100,000</td>
+                            <td class="number" id="sponsor_val_y1">$50,000</td>
+                            <td class="number" id="sponsor_val_y2">$60,000</td>
+                            <td class="number" id="sponsor_val_y3">$75,000</td>
+                            <td class="number" id="sponsor_val_y4">$90,000</td>
+                            <td class="number" id="sponsor_val_y5">$100,000</td>
                             <td class="number">-</td>
                         </tr>
                         <tr>
                             <td>Event Sponsorship</td>
-                            <td class="number">$0</td>
-                            <td class="number">$200,000</td>
-                            <td class="number">$300,000</td>
-                            <td class="number">$450,000</td>
-                            <td class="number">$720,000</td>
-                            <td class="number">$1,000,000</td>
+                            <td class="number" id="sponsor_rev_current">$0</td>
+                            <td class="number" id="sponsor_rev_y1">$200,000</td>
+                            <td class="number" id="sponsor_rev_y2">$300,000</td>
+                            <td class="number" id="sponsor_rev_y3">$450,000</td>
+                            <td class="number" id="sponsor_rev_y4">$720,000</td>
+                            <td class="number" id="sponsor_rev_y5">$1,000,000</td>
                             <td class="number">-</td>
                         </tr>
                         <tr>
                             <td>Digital/Streaming Rights</td>
-                            <td class="number">$0</td>
-                            <td class="number">$100,000</td>
-                            <td class="number">$250,000</td>
-                            <td class="number">$500,000</td>
-                            <td class="number">$800,000</td>
-                            <td class="number">$1,200,000</td>
+                            <td class="number" id="digital_rev_current">$0</td>
+                            <td class="number" id="digital_rev_y1">$100,000</td>
+                            <td class="number" id="digital_rev_y2">$250,000</td>
+                            <td class="number" id="digital_rev_y3">$500,000</td>
+                            <td class="number" id="digital_rev_y4">$800,000</td>
+                            <td class="number" id="digital_rev_y5">$1,200,000</td>
                             <td class="number">-</td>
                         </tr>
                         <tr class="subtotal-row">
                             <td>Total Ad Revenue</td>
-                            <td class="number">$0</td>
-                            <td class="number">$300,000</td>
-                            <td class="number">$550,000</td>
-                            <td class="number">$950,000</td>
-                            <td class="number">$1,520,000</td>
-                            <td class="number">$2,200,000</td>
+                            <td class="number" id="ad_rev_current">$0</td>
+                            <td class="number" id="ad_rev_y1">$300,000</td>
+                            <td class="number" id="ad_rev_y2">$550,000</td>
+                            <td class="number" id="ad_rev_y3">$950,000</td>
+                            <td class="number" id="ad_rev_y4">$1,520,000</td>
+                            <td class="number" id="ad_rev_y5">$2,200,000</td>
                             <td class="number">-</td>
                         </tr>
                         
@@ -585,35 +585,35 @@
                         </tr>
                         <tr>
                             <td>Merch Revenue</td>
-                            <td class="number">$10,550</td>
-                            <td class="number">$181,875</td>
-                            <td class="number">$320,850</td>
-                            <td class="number">$545,700</td>
-                            <td class="number">$775,163</td>
-                            <td class="number">$1,060,725</td>
+                            <td class="number" id="merch_rev_current">$10,550</td>
+                            <td class="number" id="merch_rev_y1">$181,875</td>
+                            <td class="number" id="merch_rev_y2">$320,850</td>
+                            <td class="number" id="merch_rev_y3">$545,700</td>
+                            <td class="number" id="merch_rev_y4">$775,163</td>
+                            <td class="number" id="merch_rev_y5">$1,060,725</td>
                             <td class="number">-</td>
                         </tr>
                         <tr>
                             <td>Other Revenue</td>
-                            <td class="number">$0</td>
-                            <td class="number">$50,000</td>
-                            <td class="number">$100,000</td>
-                            <td class="number">$150,000</td>
-                            <td class="number">$200,000</td>
-                            <td class="number">$250,000</td>
+                            <td class="number" id="other_rev_current">$0</td>
+                            <td class="number" id="other_rev_y1">$50,000</td>
+                            <td class="number" id="other_rev_y2">$100,000</td>
+                            <td class="number" id="other_rev_y3">$150,000</td>
+                            <td class="number" id="other_rev_y4">$200,000</td>
+                            <td class="number" id="other_rev_y5">$250,000</td>
                             <td class="number">-</td>
                         </tr>
                         
                         <!-- Total Revenue -->
                         <tr class="total-row">
                             <td><strong>TOTAL REVENUE</strong></td>
-                            <td class="number"><strong>$32,355</strong></td>
-                            <td class="number"><strong>$945,416</strong></td>
-                            <td class="number"><strong>$1,773,401</strong></td>
-                            <td class="number"><strong>$3,146,657</strong></td>
-                            <td class="number"><strong>$4,840,461</strong></td>
-                            <td class="number"><strong>$7,041,766</strong></td>
-                            <td class="number"><strong>85.2%</strong></td>
+                            <td class="number"><strong id="total_rev_current">$32,355</strong></td>
+                            <td class="number"><strong id="total_rev_y1">$945,416</strong></td>
+                            <td class="number"><strong id="total_rev_y2">$1,773,401</strong></td>
+                            <td class="number"><strong id="total_rev_y3">$3,146,657</strong></td>
+                            <td class="number"><strong id="total_rev_y4">$4,840,461</strong></td>
+                            <td class="number"><strong id="total_rev_y5">$7,041,766</strong></td>
+                            <td class="number"><strong id="total_rev_cagr">85.2%</strong></td>
                         </tr>
                         
                         <!-- Operating Expenses -->
@@ -622,74 +622,74 @@
                         </tr>
                         <tr>
                             <td>Event Production Costs</td>
-                            <td class="number">$13,005</td>
-                            <td class="number">$195,075</td>
-                            <td class="number">$321,374</td>
-                            <td class="number">$510,584</td>
-                            <td class="number">$672,169</td>
-                            <td class="number">$832,970</td>
+                            <td class="number" id="event_costs_current">$13,005</td>
+                            <td class="number" id="event_costs_y1">$195,075</td>
+                            <td class="number" id="event_costs_y2">$321,374</td>
+                            <td class="number" id="event_costs_y3">$510,584</td>
+                            <td class="number" id="event_costs_y4">$672,169</td>
+                            <td class="number" id="event_costs_y5">$832,970</td>
                             <td class="number">-</td>
                         </tr>
                         <tr>
                             <td>Marketing & Sales</td>
-                            <td class="number">$845</td>
-                            <td class="number">$94,542</td>
-                            <td class="number">$177,340</td>
-                            <td class="number">$314,666</td>
-                            <td class="number">$484,046</td>
-                            <td class="number">$704,177</td>
+                            <td class="number" id="marketing_costs_current">$845</td>
+                            <td class="number" id="marketing_costs_y1">$94,542</td>
+                            <td class="number" id="marketing_costs_y2">$177,340</td>
+                            <td class="number" id="marketing_costs_y3">$314,666</td>
+                            <td class="number" id="marketing_costs_y4">$484,046</td>
+                            <td class="number" id="marketing_costs_y5">$704,177</td>
                             <td class="number">-</td>
                         </tr>
                         <tr>
                             <td>G&A Expenses</td>
-                            <td class="number">$1,500</td>
-                            <td class="number">$150,000</td>
-                            <td class="number">$300,000</td>
-                            <td class="number">$500,000</td>
-                            <td class="number">$750,000</td>
-                            <td class="number">$1,000,000</td>
+                            <td class="number" id="ga_costs_current">$1,500</td>
+                            <td class="number" id="ga_costs_y1">$150,000</td>
+                            <td class="number" id="ga_costs_y2">$300,000</td>
+                            <td class="number" id="ga_costs_y3">$500,000</td>
+                            <td class="number" id="ga_costs_y4">$750,000</td>
+                            <td class="number" id="ga_costs_y5">$1,000,000</td>
                             <td class="number">-</td>
                         </tr>
                         <tr>
                             <td>Merchandise Costs</td>
-                            <td class="number">$4,220</td>
-                            <td class="number">$72,750</td>
-                            <td class="number">$128,340</td>
-                            <td class="number">$218,280</td>
-                            <td class="number">$310,065</td>
-                            <td class="number">$424,290</td>
+                            <td class="number" id="merch_costs_current">$4,220</td>
+                            <td class="number" id="merch_costs_y1">$72,750</td>
+                            <td class="number" id="merch_costs_y2">$128,340</td>
+                            <td class="number" id="merch_costs_y3">$218,280</td>
+                            <td class="number" id="merch_costs_y4">$310,065</td>
+                            <td class="number" id="merch_costs_y5">$424,290</td>
                             <td class="number">-</td>
                         </tr>
                         <tr class="subtotal-row">
                             <td>Total OpEx</td>
-                            <td class="number">$19,570</td>
-                            <td class="number">$512,367</td>
-                            <td class="number">$927,054</td>
-                            <td class="number">$1,543,530</td>
-                            <td class="number">$2,216,280</td>
-                            <td class="number">$2,961,437</td>
+                            <td class="number" id="opex_current">$19,570</td>
+                            <td class="number" id="opex_y1">$512,367</td>
+                            <td class="number" id="opex_y2">$927,054</td>
+                            <td class="number" id="opex_y3">$1,543,530</td>
+                            <td class="number" id="opex_y4">$2,216,280</td>
+                            <td class="number" id="opex_y5">$2,961,437</td>
                             <td class="number">-</td>
                         </tr>
                         
                         <!-- EBITDA -->
                         <tr class="total-row">
                             <td><strong>EBITDA</strong></td>
-                            <td class="number"><strong>$12,785</strong></td>
-                            <td class="number"><strong>$433,049</strong></td>
-                            <td class="number"><strong>$846,347</strong></td>
-                            <td class="number"><strong>$1,603,127</strong></td>
-                            <td class="number"><strong>$2,624,181</strong></td>
-                            <td class="number"><strong>$4,080,329</strong></td>
+                            <td class="number"><strong id="ebitda_current">$12,785</strong></td>
+                            <td class="number"><strong id="ebitda_y1">$433,049</strong></td>
+                            <td class="number"><strong id="ebitda_y2">$846,347</strong></td>
+                            <td class="number"><strong id="ebitda_y3">$1,603,127</strong></td>
+                            <td class="number"><strong id="ebitda_y4">$2,624,181</strong></td>
+                            <td class="number"><strong id="ebitda_y5">$4,080,329</strong></td>
                             <td class="number"><strong>-</strong></td>
                         </tr>
                         <tr>
                             <td>EBITDA Margin %</td>
-                            <td class="number">39.5%</td>
-                            <td class="number">45.8%</td>
-                            <td class="number">47.7%</td>
-                            <td class="number">50.9%</td>
-                            <td class="number">54.2%</td>
-                            <td class="number">57.9%</td>
+                            <td class="number" id="ebitda_margin_current">39.5%</td>
+                            <td class="number" id="ebitda_margin_y1">45.8%</td>
+                            <td class="number" id="ebitda_margin_y2">47.7%</td>
+                            <td class="number" id="ebitda_margin_y3">50.9%</td>
+                            <td class="number" id="ebitda_margin_y4">54.2%</td>
+                            <td class="number" id="ebitda_margin_y5">57.9%</td>
                             <td class="number">-</td>
                         </tr>
                     </tbody>
@@ -701,7 +701,7 @@
         <div class="section">
             <h2 class="section-title">📈 DCF Valuation</h2>
             <div class="table-container">
-                <table>
+                <table id="dcfTable">
                     <thead>
                         <tr>
                             <th>Cash Flow Analysis</th>
@@ -716,66 +716,66 @@
                     <tbody>
                         <tr>
                             <td>EBITDA</td>
-                            <td class="number">$433,049</td>
-                            <td class="number">$846,347</td>
-                            <td class="number">$1,603,127</td>
-                            <td class="number">$2,624,181</td>
-                            <td class="number">$4,080,329</td>
-                            <td class="number">$4,202,739</td>
+                            <td class="number" id="dcf_ebitda_y1">$433,049</td>
+                            <td class="number" id="dcf_ebitda_y2">$846,347</td>
+                            <td class="number" id="dcf_ebitda_y3">$1,603,127</td>
+                            <td class="number" id="dcf_ebitda_y4">$2,624,181</td>
+                            <td class="number" id="dcf_ebitda_y5">$4,080,329</td>
+                            <td class="number" id="dcf_ebitda_terminal">$4,202,739</td>
                         </tr>
                         <tr>
                             <td>Less: Taxes (25%)</td>
-                            <td class="number">($108,262)</td>
-                            <td class="number">($211,587)</td>
-                            <td class="number">($400,782)</td>
-                            <td class="number">($656,045)</td>
-                            <td class="number">($1,020,082)</td>
-                            <td class="number">($1,050,685)</td>
+                            <td class="number" id="dcf_taxes_y1">($108,262)</td>
+                            <td class="number" id="dcf_taxes_y2">($211,587)</td>
+                            <td class="number" id="dcf_taxes_y3">($400,782)</td>
+                            <td class="number" id="dcf_taxes_y4">($656,045)</td>
+                            <td class="number" id="dcf_taxes_y5">($1,020,082)</td>
+                            <td class="number" id="dcf_taxes_terminal">($1,050,685)</td>
                         </tr>
                         <tr>
                             <td>Less: CapEx</td>
-                            <td class="number">($50,000)</td>
-                            <td class="number">($75,000)</td>
-                            <td class="number">($100,000)</td>
-                            <td class="number">($125,000)</td>
-                            <td class="number">($150,000)</td>
-                            <td class="number">($150,000)</td>
+                            <td class="number" id="dcf_capex_y1">($50,000)</td>
+                            <td class="number" id="dcf_capex_y2">($75,000)</td>
+                            <td class="number" id="dcf_capex_y3">($100,000)</td>
+                            <td class="number" id="dcf_capex_y4">($125,000)</td>
+                            <td class="number" id="dcf_capex_y5">($150,000)</td>
+                            <td class="number" id="dcf_capex_terminal">($150,000)</td>
                         </tr>
                         <tr>
                             <td>Less: Working Capital</td>
-                            <td class="number">($20,000)</td>
-                            <td class="number">($30,000)</td>
-                            <td class="number">($50,000)</td>
-                            <td class="number">($75,000)</td>
-                            <td class="number">($100,000)</td>
-                            <td class="number">$0</td>
+                            <td class="number" id="dcf_wc_y1">($20,000)</td>
+                            <td class="number" id="dcf_wc_y2">($30,000)</td>
+                            <td class="number" id="dcf_wc_y3">($50,000)</td>
+                            <td class="number" id="dcf_wc_y4">($75,000)</td>
+                            <td class="number" id="dcf_wc_y5">($100,000)</td>
+                            <td class="number" id="dcf_wc_terminal">$0</td>
                         </tr>
                         <tr class="subtotal-row">
                             <td>Free Cash Flow</td>
-                            <td class="number">$254,787</td>
-                            <td class="number">$529,760</td>
-                            <td class="number">$1,052,345</td>
-                            <td class="number">$1,768,136</td>
-                            <td class="number">$2,810,247</td>
-                            <td class="number">$3,002,054</td>
+                            <td class="number" id="dcf_fcf_y1">$254,787</td>
+                            <td class="number" id="dcf_fcf_y2">$529,760</td>
+                            <td class="number" id="dcf_fcf_y3">$1,052,345</td>
+                            <td class="number" id="dcf_fcf_y4">$1,768,136</td>
+                            <td class="number" id="dcf_fcf_y5">$2,810,247</td>
+                            <td class="number" id="dcf_fcf_terminal">$3,002,054</td>
                         </tr>
                         <tr>
                             <td>Discount Factor</td>
-                            <td class="number">0.909</td>
-                            <td class="number">0.826</td>
-                            <td class="number">0.751</td>
-                            <td class="number">0.683</td>
-                            <td class="number">0.621</td>
-                            <td class="number">0.621</td>
+                            <td class="number" id="dcf_df_y1">0.909</td>
+                            <td class="number" id="dcf_df_y2">0.826</td>
+                            <td class="number" id="dcf_df_y3">0.751</td>
+                            <td class="number" id="dcf_df_y4">0.683</td>
+                            <td class="number" id="dcf_df_y5">0.621</td>
+                            <td class="number" id="dcf_df_terminal">0.621</td>
                         </tr>
                         <tr class="total-row">
                             <td>Present Value</td>
-                            <td class="number">$231,625</td>
-                            <td class="number">$437,726</td>
-                            <td class="number">$790,582</td>
-                            <td class="number">$1,208,085</td>
-                            <td class="number">$1,745,301</td>
-                            <td class="number">$26,432,770</td>
+                            <td class="number" id="dcf_pv_y1">$231,625</td>
+                            <td class="number" id="dcf_pv_y2">$437,726</td>
+                            <td class="number" id="dcf_pv_y3">$790,582</td>
+                            <td class="number" id="dcf_pv_y4">$1,208,085</td>
+                            <td class="number" id="dcf_pv_y5">$1,745,301</td>
+                            <td class="number" id="dcf_pv_terminal">$26,432,770</td>
                         </tr>
                     </tbody>
                 </table>
@@ -784,12 +784,12 @@
             <div class="insight-box">
                 <h3>Valuation Summary</h3>
                 <ul style="list-style: none; padding-left: 0;">
-                    <li>✓ <strong>Sum of PV of Cash Flows (Years 1-5):</strong> $4,413,319</li>
-                    <li>✓ <strong>PV of Terminal Value:</strong> $26,432,770</li>
-                    <li>✓ <strong>Enterprise Value:</strong> $30,846,089</li>
+                    <li id="summary_pv_fcf">✓ <strong>Sum of PV of Cash Flows (Years 1-5):</strong> $4,413,319</li>
+                    <li id="summary_pv_terminal">✓ <strong>PV of Terminal Value:</strong> $26,432,770</li>
+                    <li id="summary_enterprise_value">✓ <strong>Enterprise Value:</strong> $30,846,089</li>
                     <li>✓ <strong>Less: Net Debt:</strong> ($0)</li>
-                    <li>✓ <strong>Equity Value:</strong> $30,846,089</li>
-                    <li>💡 <strong>Implied Multiple:</strong> 7.6x Year 5 EBITDA</li>
+                    <li id="summary_equity_value">✓ <strong>Equity Value:</strong> $30,846,089</li>
+                    <li id="summary_multiple">💡 <strong>Implied Multiple:</strong> 7.6x Year 5 EBITDA</li>
                 </ul>
             </div>
         </div>
@@ -870,9 +870,9 @@
             <div class="insight-box">
                 <h3>Key Investment Highlights</h3>
                 <ul style="list-style: none; padding-left: 0;">
-                    <li>📈 <strong>Explosive Growth:</strong> 85% revenue CAGR over 5 years</li>
-                    <li>💰 <strong>Multiple Revenue Streams:</strong> Tickets (50%), Sponsorship (31%), Merchandise (15%), Other (4%)</li>
-                    <li>🎯 <strong>Proven Unit Economics:</strong> Current events profitable with 19.3% margin, scaling to 58% EBITDA margin</li>
+                    <li id="highlight_cagr">📈 <strong>Explosive Growth:</strong> 85% revenue CAGR over 5 years</li>
+                    <li id="highlight_revenue_streams">💰 <strong>Multiple Revenue Streams:</strong> Tickets (50%), Sponsorship (31%), Merchandise (15%), Other (4%)</li>
+                    <li id="highlight_unit_economics">🎯 <strong>Proven Unit Economics:</strong> Current events profitable with 19.3% margin, scaling to 58% EBITDA margin</li>
                     <li>🏙️ <strong>NYC Market Dominance:</strong> 422 tickets sold per event with only 1 event - massive growth potential</li>
                     <li>🔄 <strong>Scalable Model:</strong> Fixed venue costs spread over more events drives margin expansion</li>
                     <li>📊 <strong>Conservative Assumptions:</strong> Model assumes gradual price increases and attendance growth</li>
@@ -889,15 +889,15 @@
                         </tr>
                         <tr>
                             <td>Year 5 Value (20% stake)</td>
-                            <td class="number">$6,169,218</td>
+                            <td class="number" id="returns_y5_value">$6,169,218</td>
                         </tr>
                         <tr>
                             <td>Cash-on-Cash Multiple</td>
-                            <td class="number">6.2x</td>
+                            <td class="number" id="returns_multiple">6.2x</td>
                         </tr>
                         <tr>
                             <td>IRR</td>
-                            <td class="number">43.6%</td>
+                            <td class="number" id="returns_irr">43.6%</td>
                         </tr>
                     </table>
                 </div>
@@ -922,38 +922,23 @@
     </div>
     
     <script>
-        // Financial model data
-        let modelData = {
-            // Current event economics
-            currentMetrics: {
-                ticketPrice: 51.67,
-                ticketsPerEvent: 422,
-                eventCost: 13005,
-                netMargin: 0.193,
-                ticketRevenue: 21805,
-                attendance: 422
-            },
-            
-            // Growth assumptions
-            growth: {
-                events: { year1: 15, growth: 0.50 },
-                ticketPrice: 0.10,
-                attendance: 0.15,
-                sponsors: { year1: 4, growth: 0.25 },
-                sponsorValue: { year1: 50000, growth: 0.20 },
-                digital: { year1: 100000, growth: 1.50 }
-            },
-            
-            // Financial parameters
-            financial: {
-                discountRate: 0.10,
-                terminalGrowth: 0.03,
-                taxRate: 0.25,
-                merchPerAttendee: 25,
-                merchMargin: 0.60
-            }
+        // --- FORMATTING HELPERS ---
+        const formatCurrency = (value, decimals = 0) => {
+            return '$' + value.toLocaleString('en-US', {
+                minimumFractionDigits: decimals,
+                maximumFractionDigits: decimals,
+            });
         };
-        
+        const formatNumber = (value, decimals = 0) => {
+            return value.toLocaleString('en-US', {
+                minimumFractionDigits: decimals,
+                maximumFractionDigits: decimals,
+            });
+        };
+        const formatPercent = (value, decimals = 1) => {
+            return (value * 100).toFixed(decimals) + '%';
+        };
+
         // Initialize charts
         let sensitivityChart, scenarioChart;
         
@@ -1014,19 +999,22 @@
                         data: [0.9, 1.8, 3.1, 4.8, 7.0],
                         borderColor: '#DC143C',
                         backgroundColor: 'rgba(220,20,60,0.1)',
-                        tension: 0.4
+                        tension: 0.4,
+                        fill: true
                     }, {
                         label: 'Bull Case',
                         data: [1.2, 2.8, 5.2, 8.5, 12.5],
                         borderColor: '#00ff00',
                         backgroundColor: 'rgba(0,255,0,0.1)',
-                        tension: 0.4
+                        tension: 0.4,
+                        fill: true
                     }, {
                         label: 'Bear Case',
                         data: [0.6, 1.1, 1.8, 2.5, 3.2],
                         borderColor: '#ff8800',
                         backgroundColor: 'rgba(255,136,0,0.1)',
-                        tension: 0.4
+                        tension: 0.4,
+                        fill: true
                     }]
                 },
                 options: {
@@ -1054,7 +1042,7 @@
         }
         
         function updateModel() {
-            // Parse input values
+            // --- 1. PARSE INPUTS ---
             const avgTicketPrice = parseFloat(document.getElementById('avgTicketPrice').value.replace('$', '').replace(',', ''));
             const ticketsPerEvent = parseInt(document.getElementById('ticketsPerEvent').value);
             const eventCost = parseFloat(document.getElementById('eventCost').value.replace('$', '').replace(',', ''));
@@ -1070,8 +1058,9 @@
             const merchMargin = parseFloat(document.getElementById('merchMargin').value.replace('%', '')) / 100;
             const discountRate = parseFloat(document.getElementById('discountRate').value.replace('%', '')) / 100;
             const terminalGrowth = parseFloat(document.getElementById('terminalGrowth').value.replace('%', '')) / 100;
-            
-            // Calculate 5-year projections
+            const taxRate = 0.25; // Assuming a constant tax rate
+
+            // --- 2. CALCULATE 5-YEAR PROJECTIONS ---
             let projections = [];
             let events = eventsYear1;
             let attendance = ticketsPerEvent;
@@ -1079,97 +1068,169 @@
             let sponsors = sponsorsYear1;
             let sponsorValue = avgSponsorshipValue;
             let digitalRev = digitalRevYear1;
+
+            // Calculate current metrics
+            const currentTicketRevenue = avgTicketPrice * ticketsPerEvent;
+            const currentMerchRevenue = ticketsPerEvent * merchPerAttendee;
+            const currentMerchCost = currentMerchRevenue * (1 - merchMargin);
+            const currentTotalRevenue = currentTicketRevenue + currentMerchRevenue;
+            const currentTotalOpEx = eventCost + currentMerchCost;
+            const currentEbitda = currentTotalRevenue - currentTotalOpEx;
+            const currentEbitdaMargin = currentEbitda / currentTotalRevenue;
             
             for (let year = 1; year <= 5; year++) {
-                // Scale metrics
                 if (year > 1) {
                     events = Math.round(events * (1 + eventGrowth));
                     attendance = Math.round(attendance * (1 + attendanceGrowth));
                     ticketPrice = ticketPrice * (1 + priceGrowth);
                     sponsors = Math.round(sponsors * (1 + sponsorGrowth));
-                    sponsorValue = sponsorValue * (1 + 0.20);
-                    digitalRev = digitalRev * (1 + 1.50);
+                    sponsorValue = sponsorValue * (1 + 0.20); // Hardcoded 20% sponsor value growth
+                    digitalRev = digitalRev * (1 + 1.50); // Hardcoded 150% digital rev growth
                 }
                 
                 const totalAttendance = events * attendance;
                 const ticketRevenue = totalAttendance * ticketPrice;
                 const sponsorRevenue = sponsors * sponsorValue;
                 const merchRevenue = totalAttendance * merchPerAttendee;
-                const otherRevenue = 50000 * year;
+                const otherRevenue = 50000 * year; // Hardcoded other revenue
                 const totalRevenue = ticketRevenue + sponsorRevenue + digitalRev + merchRevenue + otherRevenue;
                 
-                // Calculate costs
                 const eventProdCosts = events * eventCost;
-                const marketingCosts = totalRevenue * 0.10;
-                const gaCosts = 150000 * Math.pow(1.5, year - 1);
+                const marketingCosts = totalRevenue * 0.10; // Hardcoded marketing costs
+                const gaCosts = 150000 * Math.pow(1.5, year - 1); // Hardcoded G&A costs
                 const merchCosts = merchRevenue * (1 - merchMargin);
                 const totalCosts = eventProdCosts + marketingCosts + gaCosts + merchCosts;
                 
                 const ebitda = totalRevenue - totalCosts;
-                const ebitdaMargin = ebitda / totalRevenue;
+                const ebitdaMargin = totalRevenue > 0 ? ebitda / totalRevenue : 0;
                 
                 projections.push({
-                    year: year,
-                    events: events,
-                    attendance: attendance,
-                    totalAttendance: totalAttendance,
-                    ticketPrice: ticketPrice,
-                    ticketRevenue: ticketRevenue,
-                    sponsors: sponsors,
-                    sponsorValue: sponsorValue,
-                    sponsorRevenue: sponsorRevenue,
-                    digitalRev: digitalRev,
-                    merchRevenue: merchRevenue,
-                    otherRevenue: otherRevenue,
-                    totalRevenue: totalRevenue,
-                    eventProdCosts: eventProdCosts,
-                    marketingCosts: marketingCosts,
-                    gaCosts: gaCosts,
-                    merchCosts: merchCosts,
-                    totalCosts: totalCosts,
-                    ebitda: ebitda,
-                    ebitdaMargin: ebitdaMargin
+                    year, events, attendance, totalAttendance, ticketPrice, ticketRevenue,
+                    sponsors, sponsorValue, sponsorRevenue, digitalRev, merchRevenue, otherRevenue,
+                    totalRevenue, eventProdCosts, marketingCosts, gaCosts, merchCosts, totalCosts,
+                    ebitda, ebitdaMargin
                 });
             }
             
-            // Calculate DCF
+            // --- 3. CALCULATE DCF ---
             let totalPV = 0;
             let cashFlows = [];
             
             projections.forEach((proj, index) => {
-                const taxes = proj.ebitda * 0.25;
-                const capex = 50000 * (1 + index * 0.5);
-                const workingCapital = 20000 * (1 + index * 0.5);
+                const taxes = proj.ebitda * taxRate;
+                const capex = 50000 * (1 + index * 0.5); // Hardcoded capex
+                const workingCapital = 20000 * (1 + index * 0.5); // Hardcoded working capital
                 const fcf = proj.ebitda - taxes - capex - workingCapital;
                 const discountFactor = Math.pow(1 + discountRate, -(index + 1));
                 const pv = fcf * discountFactor;
                 totalPV += pv;
                 
-                cashFlows.push({
-                    fcf: fcf,
-                    discountFactor: discountFactor,
-                    pv: pv
-                });
+                cashFlows.push({ fcf, discountFactor, pv, taxes, capex, workingCapital });
             });
             
-            // Terminal value
             const terminalEBITDA = projections[4].ebitda * (1 + terminalGrowth);
-            const terminalFCF = terminalEBITDA * 0.75;
+            const terminalTaxes = terminalEBITDA * taxRate;
+            const terminalCapex = 150000; // Hardcoded
+            const terminalFCF = terminalEBITDA - terminalTaxes - terminalCapex;
             const terminalValue = terminalFCF / (discountRate - terminalGrowth);
             const terminalPV = terminalValue * Math.pow(1 + discountRate, -5);
             
             const enterpriseValue = totalPV + terminalPV;
+            const equityValue = enterpriseValue; // Assuming no debt
+
+            // --- 4. RENDER DATA TO THE DOM ---
             
             // Update KPIs
-            document.getElementById('enterpriseValue').textContent = '$' + (enterpriseValue / 1000000).toFixed(1) + 'M';
-            document.getElementById('year5Revenue').textContent = '$' + (projections[4].totalRevenue / 1000000).toFixed(1) + 'M';
-            document.getElementById('year5Ebitda').textContent = '$' + (projections[4].ebitda / 1000000).toFixed(1) + 'M';
-            document.getElementById('irr').textContent = '43.6%'; // Calculated based on $1M investment
-            
+            document.getElementById('enterpriseValue').textContent = formatCurrency(enterpriseValue / 1000000, 1) + 'M';
+            document.getElementById('year5Revenue').textContent = formatCurrency(projections[4].totalRevenue / 1000000, 1) + 'M';
+            document.getElementById('year5Ebitda').textContent = formatCurrency(projections[4].ebitda / 1000000, 1) + 'M';
+            document.getElementById('kpiDiscountRate').textContent = formatPercent(discountRate) + ' Discount Rate';
+            document.getElementById('kpiEvents').textContent = projections[4].events + ' events annually';
+            document.getElementById('kpiEbitdaMargin').textContent = formatPercent(projections[4].ebitdaMargin) + ' margin';
+
             // Update net margin
-            const netMargin = ((avgTicketPrice * ticketsPerEvent - eventCost) / (avgTicketPrice * ticketsPerEvent) * 100).toFixed(1) + '%';
-            document.getElementById('netMargin').value = netMargin;
+            const netMargin = ((avgTicketPrice * ticketsPerEvent - eventCost) / (avgTicketPrice * ticketsPerEvent));
+            document.getElementById('netMargin').value = formatPercent(netMargin);
+
+            // Update Projections Table
+            document.getElementById('events_current').textContent = formatNumber(ticketsPerEvent);
+            document.getElementById('tickets_per_event_current').textContent = formatNumber(ticketsPerEvent);
+            document.getElementById('total_tickets_current').textContent = formatNumber(ticketsPerEvent);
+            document.getElementById('avg_price_current').textContent = formatCurrency(avgTicketPrice, 2);
+            document.getElementById('ticket_rev_current').textContent = formatCurrency(currentTicketRevenue);
+            document.getElementById('merch_rev_current').textContent = formatCurrency(currentMerchRevenue);
+            document.getElementById('total_rev_current').textContent = formatCurrency(currentTotalRevenue);
+            document.getElementById('event_costs_current').textContent = formatCurrency(eventCost);
+            document.getElementById('merch_costs_current').textContent = formatCurrency(currentMerchCost);
+            document.getElementById('opex_current').textContent = formatCurrency(currentTotalOpEx);
+            document.getElementById('ebitda_current').textContent = formatCurrency(currentEbitda);
+            document.getElementById('ebitda_margin_current').textContent = formatPercent(currentEbitdaMargin);
+
+            projections.forEach((p, i) => {
+                const y = i + 1;
+                document.getElementById(`events_y${y}`).textContent = formatNumber(p.events);
+                document.getElementById(`tickets_per_event_y${y}`).textContent = formatNumber(p.attendance);
+                document.getElementById(`total_tickets_y${y}`).textContent = formatNumber(p.totalAttendance);
+                document.getElementById(`avg_price_y${y}`).textContent = formatCurrency(p.ticketPrice, 2);
+                document.getElementById(`ticket_rev_y${y}`).textContent = formatCurrency(p.ticketRevenue);
+                document.getElementById(`sponsors_y${y}`).textContent = formatNumber(p.sponsors);
+                document.getElementById(`sponsor_val_y${y}`).textContent = formatCurrency(p.sponsorValue);
+                document.getElementById(`sponsor_rev_y${y}`).textContent = formatCurrency(p.sponsorRevenue);
+                document.getElementById(`digital_rev_y${y}`).textContent = formatCurrency(p.digitalRev);
+                document.getElementById(`ad_rev_y${y}`).textContent = formatCurrency(p.sponsorRevenue + p.digitalRev);
+                document.getElementById(`merch_rev_y${y}`).textContent = formatCurrency(p.merchRevenue);
+                document.getElementById(`other_rev_y${y}`).textContent = formatCurrency(p.otherRevenue);
+                document.getElementById(`total_rev_y${y}`).textContent = formatCurrency(p.totalRevenue);
+                document.getElementById(`event_costs_y${y}`).textContent = formatCurrency(p.eventProdCosts);
+                document.getElementById(`marketing_costs_y${y}`).textContent = formatCurrency(p.marketingCosts);
+                document.getElementById(`ga_costs_y${y}`).textContent = formatCurrency(p.gaCosts);
+                document.getElementById(`merch_costs_y${y}`).textContent = formatCurrency(p.merchCosts);
+                document.getElementById(`opex_y${y}`).textContent = formatCurrency(p.totalCosts);
+                document.getElementById(`ebitda_y${y}`).textContent = formatCurrency(p.ebitda);
+                document.getElementById(`ebitda_margin_y${y}`).textContent = formatPercent(p.ebitdaMargin);
+            });
+
+            // Update DCF Table
+            cashFlows.forEach((cf, i) => {
+                const y = i + 1;
+                document.getElementById(`dcf_ebitda_y${y}`).textContent = formatCurrency(projections[i].ebitda);
+                document.getElementById(`dcf_taxes_y${y}`).textContent = `(${formatCurrency(cf.taxes)})`;
+                document.getElementById(`dcf_capex_y${y}`).textContent = `(${formatCurrency(cf.capex)})`;
+                document.getElementById(`dcf_wc_y${y}`).textContent = `(${formatCurrency(cf.workingCapital)})`;
+                document.getElementById(`dcf_fcf_y${y}`).textContent = formatCurrency(cf.fcf);
+                document.getElementById(`dcf_df_y${y}`).textContent = formatNumber(cf.discountFactor, 3);
+                document.getElementById(`dcf_pv_y${y}`).textContent = formatCurrency(cf.pv);
+            });
             
+            // Update DCF Terminal Column
+            document.getElementById('dcf_ebitda_terminal').textContent = formatCurrency(terminalEBITDA);
+            document.getElementById('dcf_taxes_terminal').textContent = `(${formatCurrency(terminalTaxes)})`;
+            document.getElementById('dcf_capex_terminal').textContent = `(${formatCurrency(terminalCapex)})`;
+            document.getElementById('dcf_wc_terminal').textContent = formatCurrency(0);
+            document.getElementById('dcf_fcf_terminal').textContent = formatCurrency(terminalFCF);
+            document.getElementById('dcf_df_terminal').textContent = formatNumber(Math.pow(1 + discountRate, -5), 3);
+            document.getElementById('dcf_pv_terminal').textContent = formatCurrency(terminalPV);
+
+            // Update Valuation Summary Box
+            document.getElementById('summary_pv_fcf').innerHTML = `✓ <strong>Sum of PV of Cash Flows (Years 1-5):</strong> ${formatCurrency(totalPV)}`;
+            document.getElementById('summary_pv_terminal').innerHTML = `✓ <strong>PV of Terminal Value:</strong> ${formatCurrency(terminalPV)}`;
+            document.getElementById('summary_enterprise_value').innerHTML = `✓ <strong>Enterprise Value:</strong> ${formatCurrency(enterpriseValue)}`;
+            document.getElementById('summary_equity_value').innerHTML = `✓ <strong>Equity Value:</strong> ${formatCurrency(equityValue)}`;
+            document.getElementById('summary_multiple').innerHTML = `💡 <strong>Implied Multiple:</strong> ${formatNumber(enterpriseValue / projections[4].ebitda, 1)}x Year 5 EBITDA`;
+
+            // Update Investment Summary
+            const y5Value = equityValue * 0.20; // 20% stake
+            const initialInvestment = 1000000;
+            const cashMultiple = y5Value / initialInvestment;
+            // IRR calculation is complex, so we'll leave the placeholder for now
+            document.getElementById('returns_y5_value').textContent = formatCurrency(y5Value);
+            document.getElementById('returns_multiple').textContent = formatNumber(cashMultiple, 1) + 'x';
+
+            // Update Scenario Chart
+            const baseRevenue = projections.map(p => p.totalRevenue / 1000000);
+            scenarioChart.data.datasets[0].data = baseRevenue;
+            scenarioChart.update();
+
             console.log('Model updated:', { projections, enterpriseValue });
         }
         
